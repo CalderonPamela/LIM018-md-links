@@ -18,7 +18,7 @@ var routeExample = './README.md';
 var directory = '../LIM018-md-links'
 
 // importa el path modulos
-const path = require("path");
+const path = require("node:path");
 
 //Importa el file system modulo
 const fs = require("fs");
@@ -27,28 +27,28 @@ const { default: axios } = require("axios");
 
 //Verifica si la ruta existe (true / false)
 const existsPath = (route) => fs.existsSync(route);
-console.log('Ruta existe:', existsPath(routeExample))
+//console.log('Ruta existe:', existsPath(routeExample))
 
 //Valida si la es ruta es absoluta (true / false)
 const absolutePath = (route) => path.isAbsolute(route);
-console.log('La ruta es absoluta:', absolutePath(routeExample))
+//console.log('La ruta es absoluta:', absolutePath(routeExample))
 
 //Convirte la ruta de relativa a absoluta
 const convertPath = (route) =>
     absolutePath(route) ? route : path.resolve(route);
-console.log('Convierte a ruta absoluta:', convertPath(routeExample))
+//console.log('Convierte a ruta absoluta:', convertPath(routeExample))
 
 //Valida si la ruta es una carpeta (true / false)
 const folderPath = (route) => fs.statSync(route).isDirectory();
-console.log('La ruta es una carpeta:', folderPath(directory))
+//console.log('La ruta es una carpeta:', folderPath(directory))
 
 //Recorre directorio
 const readDirectory = (route) => fs.readdirSync(route, "utf-8");
-console.log('Lee directorio:', readDirectory(directory))
+//console.log('Lee directorio:', readDirectory(directory))
 
 //Valida existencia de archivos con extensión .md (true / false)
 const extMdFile = (route) => path.extname(route) === ".md";
-console.log('Hay archivos con extensión .md:', extMdFile(routeExample))
+//console.log('Hay archivos con extensión .md:', extMdFile(routeExample))
 
 //Lectura la ruta
 const getMdFiles = (currentRoute) => {
@@ -66,7 +66,7 @@ const getMdFiles = (currentRoute) => {
     }
     return arrayMdFiles;
 }
-console.log('Lee la ruta:', getMdFiles(routeExample))
+//console.log('Lee la ruta:', getMdFiles(routeExample))
 
 
 //Lectura de archivo .md
@@ -85,7 +85,7 @@ const readMdFiles = (MDfile) => {
     });
 };
 
-readMdFiles(routeExample).then(val => console.log('Lectura de archivo .md:', (val)))
+//readMdFiles(routeExample).then(val => console.log('Lectura de archivo .md:', (val)))
 
 
 //Extrayendo URL´s del archivo .md
@@ -121,7 +121,7 @@ const getLinksMdFiles = (routeMDfile) =>
             });
     });
 
-getLinksMdFiles(routeExample).then(val => console.log('Extrayendo URL del archivo .md', (val)))
+//getLinksMdFiles(routeExample).then(val => console.log('Extrayendo URL del archivo .md', (val)))
 
 
 
@@ -162,6 +162,7 @@ const getObjetsLinks = (routes) => {
 //getObjetsLinks(routeExample).then(val => console.log('Extrayendo información de cada link', (val)))
 
 
+
 const getTotalLinks = (arrayLinks) => {
     const links = arrayLinks.map((item) => item.href);
     const unique = links.filter(function (item, index, arrayLinks) {
@@ -175,10 +176,39 @@ const broken = (arrayLinks) => {
     return (`\nBroken: ${codeStatus.length}`);
 }
 
-console.log('Extrayendo', getTotalLinks)
-console.log('Extrayendo', broken)
+// console.log('Extrayendo', getTotalLinks(routeExample))
+// console.log('Extrayendo', broken(routeExample))
 
 
+
+
+
+
+
+ //Función que retorna el total de links y links únicos
+// const getTotalLinks = (arraylinks) => {
+//     let totalLinks = 0;
+//     let uniqueLinks = [];
+//     arraylinks.forEach(arr => {
+//         totalLinks += arr.length;
+//         uniqueLinks = uniqueLinks.concat(arr)
+//     })
+//     uniqueLinks = new Set(uniqueLinks.map((element) => element.href)); // crear una colección de links únicos(no se repiten);
+//     const stats = `${('Total :')} ${(totalLinks)}\n${('Unique :')} ${(uniqueLinks.size)}`;
+//     console.log(stats);
+// }
+
+// //Función que verifica si hay algun link roto
+// const broken = (arraylinks) => {
+//     let broken = [];
+//     arraylinks.forEach(arr => {
+//         broken = broken.concat(arr.filter(elem => elem.message === 'Fail'));
+//     })
+//     const stats = `${('Broken :')} ${(broken.length)}`;
+//     console.log(stats);
+// }
+// console.log('Extrayendo:', getTotalLinks(routeExample))
+// //console.log('Extrayendo:', broken(routeExample))
 
 module.exports = {
     existsPath,

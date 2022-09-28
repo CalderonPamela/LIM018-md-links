@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 const mdLinks = require('../src/md-links.js')
-const [,, ...args ]= process.argv;
+const [, , ...args] = process.argv;
 console.log(`hola ${args}`)
 const {
-     getTotalLinks,
-     broken
+    getTotalLinks,
+    broken
 } = require("../src/index.js");
 
 var routeExample = './README.md';
@@ -16,7 +16,7 @@ var routeExample = './README.md';
 const readOptions = () => {
     let options = { validate: false };
     if (args.length > 3) {
-        if (args.includes('--validate') || argv.includes('--v')) {
+        if (args.includes('--validate') || args.includes('--v')) {
             options.validate = true
         } else {
             options = {};
@@ -26,10 +26,10 @@ const readOptions = () => {
 }
 
 
-mdLinks.mdLinks(args[2], readOptions())
+mdLinks.mdLinks(args, readOptions())
     .then((res) => {
         if (args.includes('--stats') || args.includes('--s')) {
-            getTotalLinks(res);
+            console.log(getTotalLinks(res));
             if ((args.includes('--validate') || args.includes('--v'))) {
                 broken(res);
             }
@@ -51,7 +51,7 @@ mdLinks.mdLinks(args[2], readOptions())
         console.log('Ruta no valida', error);
     });
 
-    args(routeExample).then(val => console.log('función mdLinks', (val)))
+   // mdLinks.mdLinks(routeExample).then(val => console.log('función mdLinks', (val)))
 
 
 
@@ -59,4 +59,3 @@ mdLinks.mdLinks(args[2], readOptions())
 
 
 
-    

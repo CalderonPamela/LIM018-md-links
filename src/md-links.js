@@ -5,7 +5,7 @@ const {
 } = require("../src/index.js");
 
 
-var routeExample = './README.md';
+//var routeExample = './README.md';
 //var directory = '../LIM018-md-links'
 
 const mdLinks = (path, option) => {
@@ -25,7 +25,7 @@ const mdLinks = (path, option) => {
     });
 };
 
-mdLinks(routeExample).then(res => console.log('función md-links', (res)))
+//mdLinks(routeExample).then(res => console.log('función md-links', (res)))
 
 module.exports = {
     mdLinks
